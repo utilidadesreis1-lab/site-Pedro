@@ -788,6 +788,8 @@ button {
     brightness(0.99)
     drop-shadow(24px 18px 22px rgba(0, 0, 0, 0.18))
     drop-shadow(-10px 10px 16px rgba(0, 0, 0, 0.1));
+  transform-origin: center bottom;
+  will-change: transform;
   transition: opacity var(--transition), transform var(--transition), filter var(--transition);
 }
 
