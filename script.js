@@ -150,6 +150,8 @@ const initSmartStoreDemo = () => {
   const adjustPanel = smartStore.querySelector("[data-store-adjuster]");
   const adjustHint = smartStore.querySelector("[data-store-adjust-hint]");
   const adjustValues = smartStore.querySelector("[data-store-adjust-values]");
+  const adjustScale = smartStore.querySelector("[data-store-adjust-scale]");
+  const adjustScaleValue = smartStore.querySelector("[data-store-adjust-scale-value]");
   const adjustReset = smartStore.querySelector("[data-store-adjust-reset]");
   const adjustCopy = smartStore.querySelector("[data-store-adjust-copy]");
 
@@ -158,7 +160,8 @@ const initSmartStoreDemo = () => {
   const fallbackImage = "images/combinacoes/placeholder.jpg";
   const mobileAdjustDefaults = {
     x: 30,
-    y: 74
+    y: 74,
+    scale: 1
   };
   let activeProductIndex = 0;
   let isAdjustMode = false;
@@ -217,12 +220,20 @@ const initSmartStoreDemo = () => {
   const isMobileViewport = () => window.matchMedia("(max-width: 519px)").matches;
 
   const getAdjustCssText = () => {
-    return `transform: translate(${mobileAdjust.x}px, ${mobileAdjust.y}px);`;
+    return `transform: translate(${mobileAdjust.x}px, ${mobileAdjust.y}px) scale(${mobileAdjust.scale});`;
   };
 
   const updateAdjustReadout = (message) => {
     if (adjustValues) {
       adjustValues.textContent = getAdjustCssText();
+    }
+
+    if (adjustScaleValue) {
+      adjustScaleValue.textContent = `${Math.round(mobileAdjust.scale * 100)}%`;
+    }
+
+    if (adjustScale) {
+      adjustScale.value = String(mobileAdjust.scale);
     }
 
     if (adjustHint) {
@@ -241,6 +252,7 @@ const initSmartStoreDemo = () => {
 
     productCard.style.setProperty("--store-mobile-translate-x", `${mobileAdjust.x}px`);
     productCard.style.setProperty("--store-mobile-translate-y", `${mobileAdjust.y}px`);
+    productCard.style.setProperty("--store-mobile-scale", `${mobileAdjust.scale}`);
     updateAdjustReadout();
   };
 
@@ -408,6 +420,12 @@ const initSmartStoreDemo = () => {
     } catch {
       updateAdjustReadout(`Copie manualmente: ${cssText}`);
     }
+  });
+
+  adjustScale?.addEventListener("input", (event) => {
+    mobileAdjust.scale = Number(event.target.value);
+    applyMobileAdjust();
+    saveAdjust();
   });
 
   window.addEventListener("resize", () => {

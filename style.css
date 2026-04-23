@@ -753,6 +753,7 @@ button {
   position: relative;
   --store-mobile-translate-x: 30px;
   --store-mobile-translate-y: 74px;
+  --store-mobile-scale: 1;
   min-height: 640px;
   padding: 0.65rem;
   border-radius: 22px;
@@ -1200,6 +1201,23 @@ button {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.42rem;
+}
+
+.store-adjuster__scale {
+  display: grid;
+  gap: 0.38rem;
+  color: #ffffff;
+}
+
+.store-adjuster__scale span,
+.store-adjuster__scale strong {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.store-adjuster__scale input {
+  width: 100%;
+  accent-color: #c6a96b;
 }
 
 .store-adjuster__button {
@@ -2374,12 +2392,12 @@ button {
     padding: 0.28rem 0.42rem 0.2rem;
     object-fit: contain;
     object-position: 67% 88%;
-    transform: translate(var(--store-mobile-translate-x), var(--store-mobile-translate-y));
+    transform: translate(var(--store-mobile-translate-x), var(--store-mobile-translate-y)) scale(var(--store-mobile-scale));
     touch-action: none;
   }
 
   .store-product-card:hover .store-product-image {
-    transform: translate(var(--store-mobile-translate-x), var(--store-mobile-translate-y));
+    transform: translate(var(--store-mobile-translate-x), var(--store-mobile-translate-y)) scale(var(--store-mobile-scale));
   }
 
   .store-product-info {

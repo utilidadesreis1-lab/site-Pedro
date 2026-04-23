@@ -105,6 +105,11 @@
                       <div class="store-adjuster__panel" data-store-adjuster hidden>
                         <p class="store-adjuster__hint" data-store-adjust-hint>Ative no mobile e arraste a modelo para ajustar.</p>
                         <div class="store-adjuster__values" data-store-adjust-values>transform: translate(30px, 74px);</div>
+                        <label class="store-adjuster__scale" for="store-adjust-scale">
+                          <span>Tamanho da modelo</span>
+                          <input id="store-adjust-scale" type="range" min="0.85" max="1.25" step="0.01" value="1" data-store-adjust-scale>
+                          <strong data-store-adjust-scale-value>100%</strong>
+                        </label>
                         <div class="store-adjuster__actions">
                           <button class="store-adjuster__button" type="button" data-store-adjust-reset>Resetar</button>
                           <button class="store-adjuster__button store-adjuster__button--primary" type="button" data-store-adjust-copy>Copiar ajuste</button>
