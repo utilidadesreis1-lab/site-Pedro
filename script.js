@@ -146,10 +146,27 @@ const initSmartStoreDemo = () => {
   const productProof = smartStore.querySelector("[data-product-proof]");
   const swatches = smartStore.querySelector("[data-store-swatches]");
   const controlLabel = smartStore.querySelector(".store-tryon span");
+  const adjustToggle = smartStore.querySelector("[data-store-adjust-toggle]");
+  const adjustPanel = smartStore.querySelector("[data-store-adjuster]");
+  const adjustHint = smartStore.querySelector("[data-store-adjust-hint]");
+  const adjustValues = smartStore.querySelector("[data-store-adjust-values]");
+  const adjustReset = smartStore.querySelector("[data-store-adjust-reset]");
+  const adjustCopy = smartStore.querySelector("[data-store-adjust-copy]");
 
   const storageKey = "studio-ia-smart-store-combination";
+  const adjustStorageKey = "studio-ia-smart-store-mobile-adjustment";
   const fallbackImage = "images/combinacoes/placeholder.jpg";
+  const mobileAdjustDefaults = {
+    x: 30,
+    y: 74
+  };
   let activeProductIndex = 0;
+  let isAdjustMode = false;
+  let dragState = null;
+  let suppressLightboxClick = false;
+  let mobileAdjust = {
+    ...mobileAdjustDefaults
+  };
   let currentSelection = {
     vestido: "mostarda",
     bolsa: "navy",
@@ -174,6 +191,57 @@ const initSmartStoreDemo = () => {
     } catch {
       // Mantem a troca funcionando mesmo se o navegador bloquear armazenamento local.
     }
+  };
+
+  const readSavedAdjust = () => {
+    try {
+      return {
+        ...mobileAdjustDefaults,
+        ...(JSON.parse(localStorage.getItem(adjustStorageKey)) || {})
+      };
+    } catch {
+      return {
+        ...mobileAdjustDefaults
+      };
+    }
+  };
+
+  const saveAdjust = () => {
+    try {
+      localStorage.setItem(adjustStorageKey, JSON.stringify(mobileAdjust));
+    } catch {
+      // Mantem o ajuste manual funcionando mesmo sem armazenamento local.
+    }
+  };
+
+  const isMobileViewport = () => window.matchMedia("(max-width: 519px)").matches;
+
+  const getAdjustCssText = () => {
+    return `transform: translate(${mobileAdjust.x}px, ${mobileAdjust.y}px);`;
+  };
+
+  const updateAdjustReadout = (message) => {
+    if (adjustValues) {
+      adjustValues.textContent = getAdjustCssText();
+    }
+
+    if (adjustHint) {
+      if (message) {
+        adjustHint.textContent = message;
+      } else if (isMobileViewport()) {
+        adjustHint.textContent = "Modo ativo: arraste a modelo com o dedo e depois copie o ajuste.";
+      } else {
+        adjustHint.textContent = "Abra no mobile para arrastar a modelo. O ajuste salvo sera aplicado ali.";
+      }
+    }
+  };
+
+  const applyMobileAdjust = () => {
+    if (!productCard) return;
+
+    productCard.style.setProperty("--store-mobile-translate-x", `${mobileAdjust.x}px`);
+    productCard.style.setProperty("--store-mobile-translate-y", `${mobileAdjust.y}px`);
+    updateAdjustReadout();
   };
 
   const getSavedVariantIndex = (productIndex) => {
@@ -235,6 +303,7 @@ const initSmartStoreDemo = () => {
 
   const openStoreLightbox = () => {
     if (!storeLightbox || !storeLightboxStage || !productImage) return;
+    if (isAdjustMode || suppressLightboxClick) return;
 
     const scenario = getSelectedScenario();
     const previewScene = document.createElement("div");
@@ -255,7 +324,95 @@ const initSmartStoreDemo = () => {
 
   productImage?.addEventListener("click", openStoreLightbox);
 
+  const stopDrag = () => {
+    if (!dragState) return;
+
+    dragState = null;
+    saveAdjust();
+    window.setTimeout(() => {
+      suppressLightboxClick = false;
+    }, 80);
+  };
+
+  productImage?.addEventListener("pointerdown", (event) => {
+    if (!isAdjustMode || !isMobileViewport()) return;
+
+    dragState = {
+      startX: event.clientX,
+      startY: event.clientY,
+      baseX: mobileAdjust.x,
+      baseY: mobileAdjust.y
+    };
+
+    suppressLightboxClick = false;
+    productImage.setPointerCapture?.(event.pointerId);
+    event.preventDefault();
+  });
+
+  productImage?.addEventListener("pointermove", (event) => {
+    if (!dragState || !isMobileViewport()) return;
+
+    const deltaX = Math.round(event.clientX - dragState.startX);
+    const deltaY = Math.round(event.clientY - dragState.startY);
+
+    if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
+      suppressLightboxClick = true;
+    }
+
+    mobileAdjust.x = dragState.baseX + deltaX;
+    mobileAdjust.y = dragState.baseY + deltaY;
+    applyMobileAdjust();
+    event.preventDefault();
+  });
+
+  productImage?.addEventListener("pointerup", stopDrag);
+  productImage?.addEventListener("pointercancel", stopDrag);
+  productImage?.addEventListener("lostpointercapture", stopDrag);
+
   currentSelection = readSavedSelection();
+  mobileAdjust = readSavedAdjust();
+  applyMobileAdjust();
+
+  adjustToggle?.addEventListener("click", () => {
+    isAdjustMode = !isAdjustMode;
+    adjustToggle.classList.toggle("is-active", isAdjustMode);
+
+    if (adjustPanel) {
+      adjustPanel.hidden = !isAdjustMode;
+    }
+
+    updateAdjustReadout(
+      isAdjustMode
+        ? undefined
+        : (isMobileViewport()
+            ? "Ajuste pausado. Reabra para continuar movendo a modelo."
+            : "Abra no mobile para arrastar a modelo. O ajuste salvo sera aplicado ali.")
+    );
+  });
+
+  adjustReset?.addEventListener("click", () => {
+    mobileAdjust = {
+      ...mobileAdjustDefaults
+    };
+    applyMobileAdjust();
+    saveAdjust();
+    updateAdjustReadout("Ajuste resetado para a posicao padrao do mobile.");
+  });
+
+  adjustCopy?.addEventListener("click", async () => {
+    const cssText = getAdjustCssText();
+
+    try {
+      await navigator.clipboard.writeText(cssText);
+      updateAdjustReadout("Ajuste copiado. Pode me mandar esse valor que eu travo no layout final.");
+    } catch {
+      updateAdjustReadout(`Copie manualmente: ${cssText}`);
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    updateAdjustReadout();
+  });
 
   const renderSwatches = (product, selectedVariantIndex) => {
     swatches.replaceChildren();
@@ -328,6 +485,7 @@ const initSmartStoreDemo = () => {
   });
 
   renderProduct(0);
+  updateAdjustReadout();
 };
 
 if (navToggle) {
