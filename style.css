@@ -754,6 +754,7 @@ button {
   --store-mobile-translate-x: 30px;
   --store-mobile-translate-y: 74px;
   --store-mobile-scale: 1;
+  --store-mobile-zoom-offset: 0px;
   min-height: 640px;
   padding: 0.65rem;
   border-radius: 22px;
@@ -2391,6 +2392,14 @@ button {
   }
 
   .store-product-image {
+    width: calc(100% + var(--store-mobile-zoom-offset));
+    height: calc(100% + var(--store-mobile-zoom-offset));
+    max-width: none;
+    max-height: none;
+    top: calc(0.28rem - (var(--store-mobile-zoom-offset) / 2));
+    right: calc(0.58rem - (var(--store-mobile-zoom-offset) / 2));
+    bottom: calc(0.58rem - (var(--store-mobile-zoom-offset) / 2));
+    left: calc(0.58rem - (var(--store-mobile-zoom-offset) / 2));
     padding: 0.28rem 0.42rem 0.2rem;
     object-fit: contain;
     object-position: 67% 88%;

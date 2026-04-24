@@ -250,9 +250,12 @@ const initSmartStoreDemo = () => {
   const applyMobileAdjust = () => {
     if (!productCard) return;
 
+    const zoomOffset = Math.max(0, mobileAdjust.scale - 1) * 220;
+
     productCard.style.setProperty("--store-mobile-translate-x", `${mobileAdjust.x}px`);
     productCard.style.setProperty("--store-mobile-translate-y", `${mobileAdjust.y}px`);
     productCard.style.setProperty("--store-mobile-scale", `${mobileAdjust.scale}`);
+    productCard.style.setProperty("--store-mobile-zoom-offset", `${zoomOffset}px`);
     updateAdjustReadout();
   };
 
