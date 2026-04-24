@@ -2521,6 +2521,10 @@ button {
     object-fit: contain;
     object-position: 67% 88%;
     transform: translate(var(--store-adjust-x), var(--store-adjust-y)) scale(var(--store-adjust-scale));
+    touch-action: pan-y;
+  }
+
+  .smart-store-demo.is-adjust-mode .store-product-image {
     touch-action: none;
   }
 
