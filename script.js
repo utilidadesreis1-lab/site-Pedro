@@ -8,6 +8,14 @@ const smartStore = document.querySelector("[data-smart-store]");
 const storeLightbox = document.querySelector("[data-store-lightbox]");
 const storeLightboxStage = document.querySelector("[data-store-lightbox-stage]");
 const storeLightboxClose = document.querySelector("[data-store-lightbox-close]");
+const adjustToggle = document.querySelector("[data-store-adjust-toggle]");
+const adjustPanel = document.querySelector("[data-store-adjuster]");
+const adjustHint = document.querySelector("[data-store-adjust-hint]");
+const adjustValues = document.querySelector("[data-store-adjust-values]");
+const adjustScale = document.querySelector("[data-store-adjust-scale]");
+const adjustScaleValue = document.querySelector("[data-store-adjust-scale-value]");
+const adjustReset = document.querySelector("[data-store-adjust-reset]");
+const adjustCopy = document.querySelector("[data-store-adjust-copy]");
 
 // Edite estes itens para trocar os produtos da demonstração da Loja Inteligente.
 const smartStoreProducts = [
@@ -146,29 +154,29 @@ const initSmartStoreDemo = () => {
   const productProof = smartStore.querySelector("[data-product-proof]");
   const swatches = smartStore.querySelector("[data-store-swatches]");
   const controlLabel = smartStore.querySelector(".store-tryon span");
-  const adjustToggle = smartStore.querySelector("[data-store-adjust-toggle]");
-  const adjustPanel = smartStore.querySelector("[data-store-adjuster]");
-  const adjustHint = smartStore.querySelector("[data-store-adjust-hint]");
-  const adjustValues = smartStore.querySelector("[data-store-adjust-values]");
-  const adjustScale = smartStore.querySelector("[data-store-adjust-scale]");
-  const adjustScaleValue = smartStore.querySelector("[data-store-adjust-scale-value]");
-  const adjustReset = smartStore.querySelector("[data-store-adjust-reset]");
-  const adjustCopy = smartStore.querySelector("[data-store-adjust-copy]");
 
   const storageKey = "studio-ia-smart-store-combination";
-  const adjustStorageKey = "studio-ia-smart-store-mobile-adjustment";
+  const adjustStorageKey = "studio-ia-smart-store-adjustment";
   const fallbackImage = "images/combinacoes/placeholder.jpg";
-  const mobileAdjustDefaults = {
-    x: 30,
-    y: 74,
-    scale: 1
+  const viewportAdjustDefaults = {
+    mobile: {
+      x: -13,
+      y: 67,
+      scale: 1.21
+    },
+    desktop: {
+      x: 0,
+      y: -30,
+      scale: 1
+    }
   };
   let activeProductIndex = 0;
   let isAdjustMode = false;
   let dragState = null;
   let suppressLightboxClick = false;
-  let mobileAdjust = {
-    ...mobileAdjustDefaults
+  let viewportAdjustments = {
+    mobile: { ...viewportAdjustDefaults.mobile },
+    desktop: { ...viewportAdjustDefaults.desktop }
   };
   let currentSelection = {
     vestido: "mostarda",
@@ -199,63 +207,77 @@ const initSmartStoreDemo = () => {
   const readSavedAdjust = () => {
     try {
       return {
-        ...mobileAdjustDefaults,
-        ...(JSON.parse(localStorage.getItem(adjustStorageKey)) || {})
+        mobile: {
+          ...viewportAdjustDefaults.mobile,
+          ...((JSON.parse(localStorage.getItem(adjustStorageKey)) || {}).mobile || {})
+        },
+        desktop: {
+          ...viewportAdjustDefaults.desktop,
+          ...((JSON.parse(localStorage.getItem(adjustStorageKey)) || {}).desktop || {})
+        }
       };
     } catch {
       return {
-        ...mobileAdjustDefaults
+        mobile: { ...viewportAdjustDefaults.mobile },
+        desktop: { ...viewportAdjustDefaults.desktop }
       };
     }
   };
 
   const saveAdjust = () => {
     try {
-      localStorage.setItem(adjustStorageKey, JSON.stringify(mobileAdjust));
+      localStorage.setItem(adjustStorageKey, JSON.stringify(viewportAdjustments));
     } catch {
       // Mantem o ajuste manual funcionando mesmo sem armazenamento local.
     }
   };
 
   const isMobileViewport = () => window.matchMedia("(max-width: 519px)").matches;
+  const getViewportKey = () => (isMobileViewport() ? "mobile" : "desktop");
+  const getCurrentAdjust = () => viewportAdjustments[getViewportKey()];
 
   const getAdjustCssText = () => {
-    return `transform: translate(${mobileAdjust.x}px, ${mobileAdjust.y}px) scale(${mobileAdjust.scale});`;
+    const currentAdjust = getCurrentAdjust();
+    return `transform: translate(${currentAdjust.x}px, ${currentAdjust.y}px) scale(${currentAdjust.scale});`;
   };
 
   const updateAdjustReadout = (message) => {
+    const currentAdjust = getCurrentAdjust();
+    const viewportLabel = getViewportKey() === "mobile" ? "Mobile" : "Desktop";
+
     if (adjustValues) {
       adjustValues.textContent = getAdjustCssText();
     }
 
     if (adjustScaleValue) {
-      adjustScaleValue.textContent = `${Math.round(mobileAdjust.scale * 100)}%`;
+      adjustScaleValue.textContent = `${Math.round(currentAdjust.scale * 100)}%`;
     }
 
     if (adjustScale) {
-      adjustScale.value = String(mobileAdjust.scale);
+      adjustScale.value = String(currentAdjust.scale);
     }
 
     if (adjustHint) {
       if (message) {
         adjustHint.textContent = message;
-      } else if (isMobileViewport()) {
-        adjustHint.textContent = "Modo ativo: arraste a modelo com o dedo e depois copie o ajuste.";
+      } else if (isAdjustMode) {
+        adjustHint.textContent = `${viewportLabel}: arraste a modelo e ajuste o tamanho antes de copiar o valor.`;
       } else {
-        adjustHint.textContent = "Abra no mobile para arrastar a modelo. O ajuste salvo sera aplicado ali.";
+        adjustHint.textContent = `${viewportLabel}: abra o painel para mover ou redimensionar a modelo neste layout.`;
       }
     }
   };
 
-  const applyMobileAdjust = () => {
+  const applyCurrentAdjust = () => {
     if (!productCard) return;
 
-    const zoomOffset = Math.max(0, mobileAdjust.scale - 1) * 220;
+    const currentAdjust = getCurrentAdjust();
+    const zoomOffset = Math.max(0, currentAdjust.scale - 1) * 220;
 
-    productCard.style.setProperty("--store-mobile-translate-x", `${mobileAdjust.x}px`);
-    productCard.style.setProperty("--store-mobile-translate-y", `${mobileAdjust.y}px`);
-    productCard.style.setProperty("--store-mobile-scale", `${mobileAdjust.scale}`);
-    productCard.style.setProperty("--store-mobile-zoom-offset", `${zoomOffset}px`);
+    productCard.style.setProperty("--store-adjust-x", `${currentAdjust.x}px`);
+    productCard.style.setProperty("--store-adjust-y", `${currentAdjust.y}px`);
+    productCard.style.setProperty("--store-adjust-scale", `${currentAdjust.scale}`);
+    productCard.style.setProperty("--store-adjust-zoom-offset", `${zoomOffset}px`);
     updateAdjustReadout();
   };
 
@@ -350,13 +372,15 @@ const initSmartStoreDemo = () => {
   };
 
   productImage?.addEventListener("pointerdown", (event) => {
-    if (!isAdjustMode || !isMobileViewport()) return;
+    if (!isAdjustMode) return;
+
+    const currentAdjust = getCurrentAdjust();
 
     dragState = {
       startX: event.clientX,
       startY: event.clientY,
-      baseX: mobileAdjust.x,
-      baseY: mobileAdjust.y
+      baseX: currentAdjust.x,
+      baseY: currentAdjust.y
     };
 
     suppressLightboxClick = false;
@@ -365,7 +389,7 @@ const initSmartStoreDemo = () => {
   });
 
   productImage?.addEventListener("pointermove", (event) => {
-    if (!dragState || !isMobileViewport()) return;
+    if (!dragState) return;
 
     const deltaX = Math.round(event.clientX - dragState.startX);
     const deltaY = Math.round(event.clientY - dragState.startY);
@@ -374,9 +398,10 @@ const initSmartStoreDemo = () => {
       suppressLightboxClick = true;
     }
 
-    mobileAdjust.x = dragState.baseX + deltaX;
-    mobileAdjust.y = dragState.baseY + deltaY;
-    applyMobileAdjust();
+    const currentAdjust = getCurrentAdjust();
+    currentAdjust.x = dragState.baseX + deltaX;
+    currentAdjust.y = dragState.baseY + deltaY;
+    applyCurrentAdjust();
     event.preventDefault();
   });
 
@@ -385,33 +410,30 @@ const initSmartStoreDemo = () => {
   productImage?.addEventListener("lostpointercapture", stopDrag);
 
   currentSelection = readSavedSelection();
-  mobileAdjust = readSavedAdjust();
-  applyMobileAdjust();
+  viewportAdjustments = readSavedAdjust();
+  applyCurrentAdjust();
 
   adjustToggle?.addEventListener("click", () => {
     isAdjustMode = !isAdjustMode;
     adjustToggle.classList.toggle("is-active", isAdjustMode);
+    adjustToggle.setAttribute("aria-expanded", isAdjustMode ? "true" : "false");
+    smartStore.classList.toggle("is-adjust-mode", isAdjustMode);
 
     if (adjustPanel) {
       adjustPanel.hidden = !isAdjustMode;
     }
 
-    updateAdjustReadout(
-      isAdjustMode
-        ? undefined
-        : (isMobileViewport()
-            ? "Ajuste pausado. Reabra para continuar movendo a modelo."
-            : "Abra no mobile para arrastar a modelo. O ajuste salvo sera aplicado ali.")
-    );
+    updateAdjustReadout(isAdjustMode ? undefined : "Ajuste pausado. Reabra o painel quando quiser continuar.");
   });
 
   adjustReset?.addEventListener("click", () => {
-    mobileAdjust = {
-      ...mobileAdjustDefaults
+    const viewportKey = getViewportKey();
+    viewportAdjustments[viewportKey] = {
+      ...viewportAdjustDefaults[viewportKey]
     };
-    applyMobileAdjust();
+    applyCurrentAdjust();
     saveAdjust();
-    updateAdjustReadout("Ajuste resetado para a posicao padrao do mobile.");
+    updateAdjustReadout(`Ajuste resetado para o padrao do ${viewportKey === "mobile" ? "mobile" : "desktop"}.`);
   });
 
   adjustCopy?.addEventListener("click", async () => {
@@ -426,12 +448,13 @@ const initSmartStoreDemo = () => {
   });
 
   adjustScale?.addEventListener("input", (event) => {
-    mobileAdjust.scale = Number(event.target.value);
-    applyMobileAdjust();
+    getCurrentAdjust().scale = Number(event.target.value);
+    applyCurrentAdjust();
     saveAdjust();
   });
 
   window.addEventListener("resize", () => {
+    applyCurrentAdjust();
     updateAdjustReadout();
   });
 

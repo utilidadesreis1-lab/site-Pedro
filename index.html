@@ -100,22 +100,6 @@
                       <span>Provador virtual</span>
                       <div class="store-swatches" data-store-swatches></div>
                     </div>
-                    <div class="store-adjuster">
-                      <button class="store-adjuster__toggle" type="button" data-store-adjust-toggle>Ajustar modelo</button>
-                      <div class="store-adjuster__panel" data-store-adjuster hidden>
-                        <p class="store-adjuster__hint" data-store-adjust-hint>Ative no mobile e arraste a modelo para ajustar.</p>
-                        <div class="store-adjuster__values" data-store-adjust-values>transform: translate(30px, 74px);</div>
-                        <label class="store-adjuster__scale" for="store-adjust-scale">
-                          <span>Tamanho da modelo</span>
-                          <input id="store-adjust-scale" type="range" min="0.8" max="1.6" step="0.01" value="1" data-store-adjust-scale>
-                          <strong data-store-adjust-scale-value>100%</strong>
-                        </label>
-                        <div class="store-adjuster__actions">
-                          <button class="store-adjuster__button" type="button" data-store-adjust-reset>Resetar</button>
-                          <button class="store-adjuster__button store-adjuster__button--primary" type="button" data-store-adjust-copy>Copiar ajuste</button>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div class="store-footer">
@@ -444,6 +428,30 @@
   <div class="store-lightbox" data-store-lightbox aria-hidden="true">
     <button class="store-lightbox__close" type="button" data-store-lightbox-close aria-label="Fechar imagem em tela cheia">×</button>
     <div class="store-lightbox__stage" data-store-lightbox-stage></div>
+  </div>
+
+  <div class="store-adjust-floating" data-store-adjust-floating>
+    <button class="store-adjuster__toggle store-adjuster__toggle--floating" type="button" data-store-adjust-toggle aria-expanded="false">
+      <span class="store-adjuster__toggle-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" role="img" focusable="false">
+          <path fill="currentColor" d="M4 7a2 2 0 1 1 3.87.7h11.13a1 1 0 1 1 0 2H7.87A2 2 0 0 1 4 7Zm14 8a2 2 0 1 0-3.87-.7H5a1 1 0 1 0 0 2h9.13A2 2 0 0 0 18 15Zm-8-4a2 2 0 1 1 3.87-.7H19a1 1 0 1 1 0 2h-5.13A2 2 0 0 1 10 11Z"/>
+        </svg>
+      </span>
+      <span class="store-adjuster__toggle-label">Ajustar modelo</span>
+    </button>
+    <div class="store-adjuster__panel store-adjuster__panel--floating" data-store-adjuster hidden>
+      <p class="store-adjuster__hint" data-store-adjust-hint>Abra o ajuste e arraste a modelo para posicionar melhor.</p>
+      <div class="store-adjuster__values" data-store-adjust-values>transform: translate(-13px, 67px) scale(1.21);</div>
+      <label class="store-adjuster__scale" for="store-adjust-scale">
+        <span>Tamanho da modelo</span>
+        <input id="store-adjust-scale" type="range" min="0.8" max="1.6" step="0.01" value="1" data-store-adjust-scale>
+        <strong data-store-adjust-scale-value>100%</strong>
+      </label>
+      <div class="store-adjuster__actions">
+        <button class="store-adjuster__button" type="button" data-store-adjust-reset>Resetar</button>
+        <button class="store-adjuster__button store-adjuster__button--primary" type="button" data-store-adjust-copy>Copiar ajuste</button>
+      </div>
+    </div>
   </div>
 
   <a
