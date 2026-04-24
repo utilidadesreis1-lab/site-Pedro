@@ -161,9 +161,9 @@ const initSmartStoreDemo = () => {
   const fallbackImage = "images/combinacoes/placeholder.jpg";
   const viewportAdjustDefaults = {
     mobile: {
-      x: -13,
-      y: 67,
-      scale: 1.21
+      x: -7,
+      y: -59,
+      scale: 1.09
     },
     desktop: {
       x: 0,

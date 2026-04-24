@@ -2452,9 +2452,9 @@ button {
 
 @media (max-width: 519px) {
   .store-product-card {
-    --store-adjust-x: -13px;
-    --store-adjust-y: 67px;
-    --store-adjust-scale: 1.21;
+    --store-adjust-x: -7px;
+    --store-adjust-y: -59px;
+    --store-adjust-scale: 1.09;
   }
 
   .device-card {
