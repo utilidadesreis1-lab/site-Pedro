@@ -1142,9 +1142,9 @@ button {
   left: 1rem;
   bottom: 1rem;
   z-index: 39;
-  display: grid;
+  display: inline-grid;
   justify-items: start;
-  gap: 0.75rem;
+  position: fixed;
 }
 
 .store-adjuster__toggle,
@@ -1223,6 +1223,9 @@ button {
 }
 
 .store-adjuster__panel--floating {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 0.85rem);
   width: min(calc(100vw - 2rem), 320px);
   padding: 0.9rem;
   border-radius: 22px;
@@ -1233,6 +1236,33 @@ button {
     0 28px 60px rgba(0, 0, 0, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(18px);
+  transform-origin: left bottom;
+  animation: storeAdjustPanelIn 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.store-adjuster__panel--floating::after {
+  content: "";
+  position: absolute;
+  left: 1.1rem;
+  top: calc(100% - 1px);
+  width: 14px;
+  height: 14px;
+  background: rgba(18, 20, 25, 0.96);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transform: rotate(45deg);
+}
+
+@keyframes storeAdjustPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .store-adjuster__hint {
@@ -2524,6 +2554,8 @@ button {
 
   .store-adjuster__panel--floating {
     width: min(calc(100vw - 1.5rem), 300px);
+    left: 0;
+    bottom: calc(100% + 0.72rem);
   }
 
   .store-adjuster__toggle--floating {
