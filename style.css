@@ -920,17 +920,17 @@ button {
 }
 
 .store-product-card[data-scenario="galeria"] {
-  --store-shoe-shadow-left: 53.6%;
-  --store-shoe-shadow-bottom: 8.1%;
-  --store-shoe-shadow-width: 30%;
-  --store-shoe-shadow-height: 4%;
+  --store-shoe-shadow-left: 55.8%;
+  --store-shoe-shadow-bottom: 7.6%;
+  --store-shoe-shadow-width: 31%;
+  --store-shoe-shadow-height: 4.2%;
   --store-shoe-shadow-bg:
-    radial-gradient(ellipse at 50% 58%, rgba(83, 90, 101, 0.24) 0%, rgba(83, 90, 101, 0.14) 28%, rgba(83, 90, 101, 0.06) 48%, rgba(83, 90, 101, 0) 72%),
-    radial-gradient(ellipse at 36% 60%, rgba(83, 90, 101, 0.12) 0%, rgba(83, 90, 101, 0) 46%),
-    radial-gradient(ellipse at 70% 56%, rgba(83, 90, 101, 0.1) 0%, rgba(83, 90, 101, 0) 44%);
-  --store-shoe-shadow-blur: 4px;
-  --store-shoe-shadow-opacity: 0.96;
-  --store-shoe-shadow-transform: translateX(-50%) rotate(-2deg) scaleX(1.1);
+    radial-gradient(ellipse at 36% 58%, rgba(78, 85, 96, 0.2) 0%, rgba(78, 85, 96, 0.13) 24%, rgba(78, 85, 96, 0.05) 42%, rgba(78, 85, 96, 0) 62%),
+    radial-gradient(ellipse at 70% 55%, rgba(78, 85, 96, 0.28) 0%, rgba(78, 85, 96, 0.18) 28%, rgba(78, 85, 96, 0.08) 48%, rgba(78, 85, 96, 0) 68%),
+    radial-gradient(ellipse at 54% 66%, rgba(78, 85, 96, 0.08) 0%, rgba(78, 85, 96, 0.03) 32%, rgba(78, 85, 96, 0) 58%);
+  --store-shoe-shadow-blur: 3px;
+  --store-shoe-shadow-opacity: 0.94;
+  --store-shoe-shadow-transform: translateX(-50%) rotate(-2deg) scaleX(1.06);
 }
 
 .store-product-card[data-scenario="concreto"] .store-product-image {
@@ -943,17 +943,17 @@ button {
 }
 
 .store-product-card[data-scenario="concreto"] {
-  --store-shoe-shadow-left: 50.4%;
-  --store-shoe-shadow-bottom: 6.1%;
-  --store-shoe-shadow-width: 28%;
-  --store-shoe-shadow-height: 4.2%;
+  --store-shoe-shadow-left: 52.2%;
+  --store-shoe-shadow-bottom: 5.9%;
+  --store-shoe-shadow-width: 29%;
+  --store-shoe-shadow-height: 4.3%;
   --store-shoe-shadow-bg:
-    radial-gradient(ellipse at 50% 52%, rgba(0, 0, 0, 0.34) 0%, rgba(0, 0, 0, 0.24) 34%, rgba(0, 0, 0, 0.12) 56%, rgba(0, 0, 0, 0) 76%),
-    radial-gradient(ellipse at 38% 58%, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0) 52%),
-    radial-gradient(ellipse at 68% 54%, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0) 48%);
-  --store-shoe-shadow-blur: 7px;
-  --store-shoe-shadow-opacity: 1;
-  --store-shoe-shadow-transform: rotate(-2deg) scaleX(1.02);
+    radial-gradient(ellipse at 35% 56%, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.19) 24%, rgba(0, 0, 0, 0.08) 44%, rgba(0, 0, 0, 0) 66%),
+    radial-gradient(ellipse at 70% 53%, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0.26) 28%, rgba(0, 0, 0, 0.12) 48%, rgba(0, 0, 0, 0) 70%),
+    radial-gradient(ellipse at 53% 65%, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.04) 32%, rgba(0, 0, 0, 0) 58%);
+  --store-shoe-shadow-blur: 4px;
+  --store-shoe-shadow-opacity: 0.98;
+  --store-shoe-shadow-transform: translateX(-50%) rotate(-2deg) scaleX(1.04);
 }
 
 .store-product-card[data-scenario="minimal"] .store-product-image {
@@ -966,17 +966,17 @@ button {
 }
 
 .store-product-card[data-scenario="minimal"] {
-  --store-shoe-shadow-left: 50.1%;
-  --store-shoe-shadow-bottom: 6.3%;
-  --store-shoe-shadow-width: 26%;
-  --store-shoe-shadow-height: 3.8%;
+  --store-shoe-shadow-left: 52%;
+  --store-shoe-shadow-bottom: 6.4%;
+  --store-shoe-shadow-width: 27%;
+  --store-shoe-shadow-height: 3.9%;
   --store-shoe-shadow-bg:
-    radial-gradient(ellipse at 50% 53%, rgba(90, 90, 90, 0.16) 0%, rgba(90, 90, 90, 0.1) 34%, rgba(90, 90, 90, 0.04) 56%, rgba(90, 90, 90, 0) 76%),
-    radial-gradient(ellipse at 38% 58%, rgba(90, 90, 90, 0.07) 0%, rgba(90, 90, 90, 0) 52%),
-    radial-gradient(ellipse at 68% 54%, rgba(90, 90, 90, 0.06) 0%, rgba(90, 90, 90, 0) 48%);
-  --store-shoe-shadow-blur: 6px;
-  --store-shoe-shadow-opacity: 0.72;
-  --store-shoe-shadow-transform: rotate(-1deg) scaleX(1);
+    radial-gradient(ellipse at 36% 57%, rgba(102, 102, 102, 0.12) 0%, rgba(102, 102, 102, 0.08) 24%, rgba(102, 102, 102, 0.03) 42%, rgba(102, 102, 102, 0) 62%),
+    radial-gradient(ellipse at 69% 54%, rgba(102, 102, 102, 0.18) 0%, rgba(102, 102, 102, 0.11) 28%, rgba(102, 102, 102, 0.05) 48%, rgba(102, 102, 102, 0) 68%),
+    radial-gradient(ellipse at 53% 65%, rgba(102, 102, 102, 0.05) 0%, rgba(102, 102, 102, 0.02) 28%, rgba(102, 102, 102, 0) 52%);
+  --store-shoe-shadow-blur: 4px;
+  --store-shoe-shadow-opacity: 0.76;
+  --store-shoe-shadow-transform: translateX(-50%) rotate(-1deg) scaleX(1.02);
 }
 
 .store-product-card:hover .store-product-image {
@@ -2611,45 +2611,45 @@ button {
   }
 
   .store-product-card[data-scenario="galeria"] {
-    --store-shoe-shadow-left: 57.2%;
-    --store-shoe-shadow-bottom: 11.2%;
-    --store-shoe-shadow-width: 34%;
-    --store-shoe-shadow-height: 3.9%;
+    --store-shoe-shadow-left: 59.8%;
+    --store-shoe-shadow-bottom: 10.8%;
+    --store-shoe-shadow-width: 36%;
+    --store-shoe-shadow-height: 4.2%;
     --store-shoe-shadow-bg:
-      radial-gradient(ellipse at 50% 56%, rgba(92, 100, 110, 0.24) 0%, rgba(92, 100, 110, 0.16) 30%, rgba(92, 100, 110, 0.08) 48%, rgba(92, 100, 110, 0) 70%),
-      radial-gradient(ellipse at 36% 60%, rgba(92, 100, 110, 0.11) 0%, rgba(92, 100, 110, 0) 46%),
-      radial-gradient(ellipse at 69% 54%, rgba(92, 100, 110, 0.1) 0%, rgba(92, 100, 110, 0) 42%);
-    --store-shoe-shadow-blur: 3px;
-    --store-shoe-shadow-opacity: 0.95;
-    --store-shoe-shadow-transform: translateX(-50%) rotate(-2deg) scaleX(1.08);
+      radial-gradient(ellipse at 36% 58%, rgba(92, 100, 110, 0.22) 0%, rgba(92, 100, 110, 0.14) 24%, rgba(92, 100, 110, 0.06) 42%, rgba(92, 100, 110, 0) 60%),
+      radial-gradient(ellipse at 71% 54%, rgba(92, 100, 110, 0.32) 0%, rgba(92, 100, 110, 0.21) 28%, rgba(92, 100, 110, 0.1) 48%, rgba(92, 100, 110, 0) 68%),
+      radial-gradient(ellipse at 54% 66%, rgba(92, 100, 110, 0.08) 0%, rgba(92, 100, 110, 0.03) 30%, rgba(92, 100, 110, 0) 54%);
+    --store-shoe-shadow-blur: 2px;
+    --store-shoe-shadow-opacity: 0.98;
+    --store-shoe-shadow-transform: translateX(-50%) rotate(-2deg) scaleX(1.06);
   }
 
   .store-product-card[data-scenario="concreto"] {
-    --store-shoe-shadow-left: 51.4%;
-    --store-shoe-shadow-bottom: 8.9%;
-    --store-shoe-shadow-width: 33%;
-    --store-shoe-shadow-height: 3.8%;
+    --store-shoe-shadow-left: 53.2%;
+    --store-shoe-shadow-bottom: 8.7%;
+    --store-shoe-shadow-width: 34%;
+    --store-shoe-shadow-height: 4%;
     --store-shoe-shadow-bg:
-      radial-gradient(ellipse at 50% 52%, rgba(0, 0, 0, 0.34) 0%, rgba(0, 0, 0, 0.24) 34%, rgba(0, 0, 0, 0.12) 56%, rgba(0, 0, 0, 0) 76%),
-      radial-gradient(ellipse at 38% 58%, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0) 52%),
-      radial-gradient(ellipse at 68% 54%, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0) 48%);
-    --store-shoe-shadow-blur: 5px;
-    --store-shoe-shadow-opacity: 0.92;
-    --store-shoe-shadow-transform: rotate(-1deg) scaleX(1.02);
+      radial-gradient(ellipse at 35% 56%, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.18) 24%, rgba(0, 0, 0, 0.08) 42%, rgba(0, 0, 0, 0) 62%),
+      radial-gradient(ellipse at 71% 53%, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.27) 28%, rgba(0, 0, 0, 0.12) 48%, rgba(0, 0, 0, 0) 68%),
+      radial-gradient(ellipse at 53% 66%, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.04) 30%, rgba(0, 0, 0, 0) 54%);
+    --store-shoe-shadow-blur: 3px;
+    --store-shoe-shadow-opacity: 0.98;
+    --store-shoe-shadow-transform: translateX(-50%) rotate(-1deg) scaleX(1.04);
   }
 
   .store-product-card[data-scenario="minimal"] {
-    --store-shoe-shadow-left: 51.2%;
-    --store-shoe-shadow-bottom: 9%;
-    --store-shoe-shadow-width: 30%;
-    --store-shoe-shadow-height: 3.2%;
+    --store-shoe-shadow-left: 53%;
+    --store-shoe-shadow-bottom: 8.9%;
+    --store-shoe-shadow-width: 31%;
+    --store-shoe-shadow-height: 3.4%;
     --store-shoe-shadow-bg:
-      radial-gradient(ellipse at 50% 53%, rgba(90, 90, 90, 0.14) 0%, rgba(90, 90, 90, 0.08) 34%, rgba(90, 90, 90, 0.03) 56%, rgba(90, 90, 90, 0) 76%),
-      radial-gradient(ellipse at 38% 58%, rgba(90, 90, 90, 0.06) 0%, rgba(90, 90, 90, 0) 52%),
-      radial-gradient(ellipse at 68% 54%, rgba(90, 90, 90, 0.05) 0%, rgba(90, 90, 90, 0) 48%);
-    --store-shoe-shadow-blur: 4px;
-    --store-shoe-shadow-opacity: 0.68;
-    --store-shoe-shadow-transform: rotate(-1deg) scaleX(1);
+      radial-gradient(ellipse at 35% 57%, rgba(98, 98, 98, 0.12) 0%, rgba(98, 98, 98, 0.08) 24%, rgba(98, 98, 98, 0.03) 42%, rgba(98, 98, 98, 0) 62%),
+      radial-gradient(ellipse at 70% 54%, rgba(98, 98, 98, 0.18) 0%, rgba(98, 98, 98, 0.11) 28%, rgba(98, 98, 98, 0.05) 48%, rgba(98, 98, 98, 0) 68%),
+      radial-gradient(ellipse at 53% 66%, rgba(98, 98, 98, 0.05) 0%, rgba(98, 98, 98, 0.02) 28%, rgba(98, 98, 98, 0) 52%);
+    --store-shoe-shadow-blur: 3px;
+    --store-shoe-shadow-opacity: 0.74;
+    --store-shoe-shadow-transform: translateX(-50%) rotate(-1deg) scaleX(1.02);
   }
 
   .store-tryon,
