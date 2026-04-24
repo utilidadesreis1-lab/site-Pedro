@@ -148,6 +148,14 @@ const initSmartStoreDemo = () => {
 
   const tabs = smartStore.querySelector("[data-store-tabs]");
   const productCard = smartStore.querySelector(".store-product-card");
+  const productShadow = productCard?.querySelector(".store-product-shadow") || (() => {
+    if (!productCard) return null;
+    const shadow = document.createElement("div");
+    shadow.className = "store-product-shadow";
+    shadow.setAttribute("aria-hidden", "true");
+    productCard.prepend(shadow);
+    return shadow;
+  })();
   const productImage = smartStore.querySelector("[data-product-image]");
   const productTag = smartStore.querySelector("[data-product-tag]");
   const productName = smartStore.querySelector("[data-product-name]");
@@ -310,6 +318,9 @@ const initSmartStoreDemo = () => {
     productCard.dataset.scenario = scenario?.slug || "concreto";
     productCard.dataset.finalScenario = "false";
     productCard.style.setProperty("--scenario-image", `url("${scenario?.image || "images/cenarios/cenario-1.jpeg"}")`);
+    if (productShadow) {
+      productShadow.dataset.scenario = scenario?.slug || "concreto";
+    }
   };
 
   const updateProductImage = () => {
