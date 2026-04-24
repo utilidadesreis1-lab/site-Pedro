@@ -16,6 +16,7 @@ const adjustScale = document.querySelector("[data-store-adjust-scale]");
 const adjustScaleValue = document.querySelector("[data-store-adjust-scale-value]");
 const adjustReset = document.querySelector("[data-store-adjust-reset]");
 const adjustCopy = document.querySelector("[data-store-adjust-copy]");
+const adjustFloating = document.querySelector("[data-store-adjust-floating]");
 
 // Edite estes itens para trocar os produtos da demonstração da Loja Inteligente.
 const smartStoreProducts = [
@@ -578,6 +579,21 @@ document.addEventListener("click", (event) => {
 
   if (!clickedInsideMenu && !clickedToggle) {
     closeMenu();
+  }
+});
+
+document.addEventListener("click", (event) => {
+  if (!isAdjustMode || !adjustFloating || !adjustToggle || !adjustPanel) return;
+
+  const clickedInsideAdjuster = adjustFloating.contains(event.target);
+
+  if (!clickedInsideAdjuster) {
+    isAdjustMode = false;
+    adjustToggle.classList.remove("is-active");
+    adjustToggle.setAttribute("aria-expanded", "false");
+    smartStore?.classList.remove("is-adjust-mode");
+    adjustPanel.hidden = true;
+    updateAdjustReadout("Ajuste pausado. Reabra o painel quando quiser continuar.");
   }
 });
 

@@ -1174,12 +1174,13 @@ button {
 }
 
 .store-adjuster__toggle--floating {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.72rem;
+  display: inline-grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
   min-height: 60px;
-  padding: 0.8rem 1rem;
-  border-radius: 999px;
+  padding: 0;
+  border-radius: 50%;
   background: linear-gradient(135deg, #1b1e24, #262a33 58%, #343948);
   border-color: rgba(198, 169, 107, 0.24);
   box-shadow:
@@ -1203,9 +1204,7 @@ button {
 }
 
 .store-adjuster__toggle-label {
-  font-size: 0.92rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  display: none;
 }
 
 .store-adjuster__toggle.is-active {
@@ -2528,8 +2527,9 @@ button {
   }
 
   .store-adjuster__toggle--floating {
+    width: 56px;
+    height: 56px;
     min-height: 56px;
-    padding: 0.75rem 0.92rem;
   }
 
   .store-adjuster__button {
