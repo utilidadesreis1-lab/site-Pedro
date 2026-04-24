@@ -70,7 +70,7 @@ const smartStoreProducts = [
     tag: "Ambiente visual",
     proof: "Troque o clima da campanha para mostrar como o produto pode ganhar novas cenas com IA.",
     variants: [
-      { label: "Galeria", slug: "galeria", color: "#D7D8D2", image: "images/cenarios/cenario-1.jpeg" },
+      { label: "Galeria", slug: "galeria", color: "#D7D8D2", image: "images/cenarios/cenario-1.jpeg", desktopImage: "images/cenarios/cenario-1-desktop.jpeg" },
       { label: "Concreto escuro", slug: "concreto", color: "#3B403C", image: "images/cenarios/cenario-2.jpeg" },
       { label: "Minimal claro", slug: "minimal", color: "#B9BAB5", image: "images/cenarios/cenario-3.jpeg" }
     ],
@@ -307,6 +307,12 @@ const initSmartStoreDemo = () => {
     return scenarioProduct?.variants.find((variant) => variant.slug === currentSelection.cenario) || scenarioProduct?.variants[0];
   };
 
+  const getScenarioImage = (scenario) => {
+    if (!scenario) return "images/cenarios/cenario-1.jpeg";
+    if (!isMobileViewport() && scenario.desktopImage) return scenario.desktopImage;
+    return scenario.image || "images/cenarios/cenario-1.jpeg";
+  };
+
   const getCombinationPath = () => {
     return `images/combinacoes-recortadas/vestido-${currentSelection.vestido}_bolsa-${currentSelection.bolsa}_tenis-${currentSelection.tenis}.png`;
   };
@@ -314,10 +320,11 @@ const initSmartStoreDemo = () => {
   const applyScenario = () => {
     if (!productCard) return;
     const scenario = getSelectedScenario();
+    const scenarioImage = getScenarioImage(scenario);
 
     productCard.dataset.scenario = scenario?.slug || "concreto";
     productCard.dataset.finalScenario = "false";
-    productCard.style.setProperty("--scenario-image", `url("${scenario?.image || "images/cenarios/cenario-1.jpeg"}")`);
+    productCard.style.setProperty("--scenario-image", `url("${scenarioImage}")`);
     if (productShadow) {
       productShadow.dataset.scenario = scenario?.slug || "concreto";
     }
@@ -357,7 +364,7 @@ const initSmartStoreDemo = () => {
     const scenario = getSelectedScenario();
     const previewScene = document.createElement("div");
     previewScene.className = `store-lightbox__scene store-lightbox__scene--${scenario?.slug || "concreto"}`;
-    previewScene.style.setProperty("--scenario-image", `url("${scenario?.image || "images/cenarios/cenario-1.jpeg"}")`);
+    previewScene.style.setProperty("--scenario-image", `url("${getScenarioImage(scenario)}")`);
 
     const previewImage = document.createElement("img");
     previewImage.src = productImage.currentSrc || productImage.src;
@@ -466,6 +473,7 @@ const initSmartStoreDemo = () => {
   });
 
   window.addEventListener("resize", () => {
+    applyScenario();
     applyCurrentAdjust();
     updateAdjustReadout();
   });
