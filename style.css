@@ -1222,6 +1222,10 @@ button {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
+.store-adjuster__panel[hidden] {
+  display: none !important;
+}
+
 .store-adjuster__panel--floating {
   position: absolute;
   left: 0;
